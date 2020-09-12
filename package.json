@@ -1,12 +1,15 @@
 {
   "private": true,
   "scripts": {
+    "test": "jest --watch",
     "server": "nodemon --require dotenv/config index.js",
     "start": "node index.js"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.3"
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -20,5 +23,8 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.0",
     "sqlite3": "^4.1.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

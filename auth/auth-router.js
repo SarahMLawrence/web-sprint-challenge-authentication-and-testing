@@ -44,6 +44,8 @@ router.post("/login", (req, res, next) => {
       });
     }
 
+    console.log(password, user.password)
+
     const passwordValid = bcrypt.compare(password, user.password);
 
     if (!passwordValid) {
@@ -54,7 +56,7 @@ router.post("/login", (req, res, next) => {
 
     const payload = {
       userID: user.id,
-      username: user.username
+      userName: user.username
     }
 
     const token = createToken(user)
@@ -74,7 +76,7 @@ router.post("/login", (req, res, next) => {
     // res.cookie("token", token);
 
     res.json({
-      message: `Welcome ${user.username}!`,
+      message: `Welcome ${user.userName}!`,
       token,
     });
   } catch (err) {
