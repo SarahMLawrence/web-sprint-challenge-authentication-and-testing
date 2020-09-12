@@ -33,10 +33,10 @@ router.post("/register", async (req, res, next) => {
   //-------//
   // LOGIN //
   //-------//
-router.post("/login", (req, res, next) => {
+router.post("/login",  async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const user = Auth.findBy({ username }).first();
+    const user =  await Auth.findBy({ username }).first();
 
     if (!user) {
       return res.status(401).json({
@@ -44,7 +44,8 @@ router.post("/login", (req, res, next) => {
       });
     }
 
-    console.log(password, user.password)
+    console.log(username)
+    console.log(password)
 
     const passwordValid = bcrypt.compare(password, user.password);
 
@@ -56,7 +57,7 @@ router.post("/login", (req, res, next) => {
 
     const payload = {
       userID: user.id,
-      userName: user.username
+      username: user.username
     }
 
     const token = createToken(user)
@@ -76,7 +77,7 @@ router.post("/login", (req, res, next) => {
     // res.cookie("token", token);
 
     res.json({
-      message: `Welcome ${user.userName}!`,
+      message: `Welcome ${user.username}!`,
       token,
     });
   } catch (err) {
