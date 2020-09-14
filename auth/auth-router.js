@@ -5,6 +5,21 @@ const jwt = require("jsonwebtoken");
 const Auth = require("./auth-model");
 const restrict = require("./authenticate-middleware");
 
+
+
+//---------------------//
+//  GET LIST OF USERS  //
+//---------------------//
+router.get("/users", async (req, res, next) => {
+  try{
+    
+    const user = await Auth.find()
+    res.status(200).json(user)
+  }catch(err){
+    next(err)
+  }
+
+})
 //-------------------//
 // CREATE A NEW USER //
 //-------------------//
@@ -25,7 +40,7 @@ router.post("/register", async (req, res, next) => {
     });
 
     res.status(201).json(newUser);
-  } catch {
+  } catch(err) {
     next(err);
   }
 });
